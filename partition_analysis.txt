@@ -1,0 +1,50 @@
+Loading nodes_with_partitions from /Users/amgzc/mujahid/projects/ehr-gnn/ehr-gnn/data/graph/nodes_with_partitions.parquet
+Loading edges from /Users/amgzc/mujahid/projects/ehr-gnn/ehr-gnn/data/graph/ehr_edges.parquet
+
+=== Node partition distribution ===
+partition
+-1    58153
+ 0    24906
+ 1    24864
+ 2    27679
+ 3    32946
+Name: count, dtype: int64
+
+=== Node partition distribution by node_type ===
+     node_type  partition  count
+0    diagnosis          0    334
+1    diagnosis          1    160
+2    diagnosis          2     67
+3    diagnosis          3    382
+4   lab_bucket         -1      2
+5   medication          0   1286
+6   medication          1    631
+7   medication          2    640
+8   medication          3   1310
+9      patient          0  10967
+10     patient          1  11506
+11     patient          2  12521
+12     patient          3  11526
+13   procedure          0     47
+14   procedure          1      6
+15   procedure          2     13
+16   procedure          3     23
+17       visit         -1  58151
+18       visit          0  12272
+19       visit          1  12561
+20       visit          2  14438
+21       visit          3  19705
+
+=== Edge cut analysis ===
+Total edges considered: 2697547
+Unweighted cut edges: 1266084 (0.4693 of edges)
+Total edge weight: 12719717.00
+Weighted cut: 2802897.00 (0.2204 of weight)
+
+=== Edge cut by edge_type ===
+       edge_type  total_edges  cut_edges  cut_ratio_edges  total_weight  cut_weight  cut_ratio_weight
+   patient-visit        58976          0         0.000000      235904.0         0.0          0.000000
+ visit-diagnosis       599200     270729         0.451817     1797600.0    812187.0          0.451817
+       visit-lab       115930          0         0.000000     6839331.0         0.0          0.000000
+visit-medication      1755634     909660         0.518138     3511268.0   1819320.0          0.518138
+ visit-procedure       167807      85695         0.510676      335614.0    171390.0          0.510676

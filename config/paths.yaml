@@ -22,10 +22,11 @@ graph_files:
   full_graph_dgl:             "full_graph.dgl"
 
 metis:
-  work_dir:       "/Users/amgzc/mujahid/projects/ehr-gnn/ehr-gnn/data/graph/metis"
+  work_dir: "/Users/amgzc/mujahid/projects/ehr-gnn/ehr-gnn/data/graph/metis"
   graph_filename: "contracted.graph"
-  num_parts:      4
+  num_parts: 4
   gpmetis_binary: "/opt/homebrew/bin/gpmetis"
+
 
 logs:
   root: "/Users/amgzc/mujahid/projects/ehr-gnn/ehr-gnn/logs"
