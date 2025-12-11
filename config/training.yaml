@@ -1,0 +1,46 @@
+# GNN training configuration.
+
+task:
+  name: "multi_label_diagnosis_prediction"
+  label_level: "visit"
+  target_node_type: "visit"
+  num_labels: 128     # placeholder; replace with actual count later
+
+model:
+  type: "graphsage"       # "graphsage" or "gcn"
+  in_dim: 64
+  hidden_dim: 128
+  out_dim: 128            # must equal num_labels
+  num_layers: 2
+  dropout: 0.5
+  aggregator: "mean"
+
+training:
+  num_epochs: 30
+  batch_size: 2048
+  lr: 0.001
+  weight_decay: 0.0005
+  optimizer: "adam"
+
+loss:
+  type: "binary_cross_entropy_with_logits"
+  pos_weight_path: null
+
+sampling:
+  use_neighbor_sampling: true
+  fanouts: [10, 10]
+  num_workers: 4
+
+evaluation:
+  metrics:
+    - "precision_at_k"
+  precision_at_k:
+    ks: [5, 10]
+
+  eval_interval_epochs: 1
+
+  early_stopping:
+    enabled: true
+    patience: 5
+    metric: "precision_at_k@5"
+    mode: "max"

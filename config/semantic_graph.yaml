@@ -1,0 +1,45 @@
+# Semantic EHR heterogeneous graph construction config.
+
+icd_truncation:
+  diagnosis_digits: 3
+  procedure_digits: 2
+
+lab_bucketing:
+  use_mimic_flag: true
+  default_bucket: "normal"
+
+  numeric_thresholds:
+    enabled: false
+    high_zscore: 2.0
+    low_zscore: -2.0
+
+edge_types:
+  patient_visit: "patient-visit"
+  visit_diagnosis: "visit-diagnosis"
+  visit_procedure: "visit-procedure"
+  visit_medication: "visit-medication"
+  visit_lab: "visit-lab"
+
+edge_weights:
+  patient-visit:     4.0
+  visit-diagnosis:   3.0
+  visit-procedure:   2.0
+  visit-medication:  2.0
+  visit-lab:         1.5
+
+node_types:
+  patient:    "patient"
+  visit:      "visit"
+  diagnosis:  "diagnosis"
+  procedure:  "procedure"
+  medication: "medication"
+  lab_bucket: "lab_bucket"
+
+patient_contraction:
+  enabled: true
+  wmax: 8.0
+
+labeling:
+  level: "visit"
+  diagnosis_source: "DIAGNOSES_ICD"
+  min_labels_per_node: 1

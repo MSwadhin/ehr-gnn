@@ -1,0 +1,17 @@
+# Spark configuration (local mode on Mac M3)
+
+app_name_prefix: "ehr-semantic-graph"
+
+master: "local[*]"
+
+config:
+  spark.driver.memory: "8g"
+  spark.executor.memory: "8g"
+  spark.driver.maxResultSize: "4g"
+  spark.sql.shuffle.partitions: 64
+  spark.default.parallelism: 64
+  spark.ui.showConsoleProgress: true
+
+env:
+  JAVA_HOME: "/Users/amgzc/.sdkman/candidates/java/current"
+  PYSPARK_PYTHON: "/opt/anaconda3/envs/ehr-gnn/bin/python"
