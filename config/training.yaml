@@ -1,45 +1,41 @@
-# GNN training configuration.
-
 task:
-  name: "multi_label_diagnosis_prediction"
-  label_level: "visit"
-  target_node_type: "visit"
-  num_labels: 128     # placeholder; replace with actual count later
+  name: "mortality_readmission"
+  label_level: "mixed"          # we use both visit + patient labels
+  target_node_type: "visit"     # optional, not strictly used for now
+  num_labels: 4                 # visit_mort, patient_mort, visit_readm, patient_readm
 
 model:
-  type: graphsage       # or "gcn"
+  type: "graphsage"             # "graphsage" or "gcn"
+  in_dim: 0                     # will be overridden by feature builder
   hidden_dim: 128
+  out_dim: 4                    # same as num_labels
   num_layers: 2
   dropout: 0.5
-  aggregator: mean
+  aggregator: "mean"            # for GraphSAGE
 
 training:
-  num_epochs: 10
+  num_epochs: 80
   batch_size: 1024
   lr: 0.001
   weight_decay: 0.0005
-  optimizer: adam       # not used yet, but fine to keep
+  optimizer: "adam"
+
+loss:
+  type: "binary_cross_entropy_with_logits"
+  pos_weight_path: null         # we compute pos_weight automatically
 
 sampling:
   use_neighbor_sampling: true
   fanouts: [10, 10]
-  num_workers: 0
-
-loss:
-  type: "binary_cross_entropy_with_logits"
-  pos_weight_path: null
-
+  num_workers: 0                # Spark cluster nonsense is irrelevant here
 
 evaluation:
-  metrics:
-    - "precision_at_k"
+  metrics: ["auroc", "auprc"]
   precision_at_k:
     ks: [5, 10]
-
-  eval_interval_epochs: 1
-
+  eval_interval_epochs: 5
   early_stopping:
-    enabled: true
+    enabled: false
     patience: 5
-    metric: "precision_at_k@5"
+    metric: "auroc"
     mode: "max"
