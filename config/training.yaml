@@ -7,29 +7,28 @@ task:
   num_labels: 128     # placeholder; replace with actual count later
 
 model:
-  type: "graphsage"       # "graphsage" or "gcn"
-  in_dim: 64
+  type: graphsage       # or "gcn"
   hidden_dim: 128
-  out_dim: 128            # must equal num_labels
   num_layers: 2
   dropout: 0.5
-  aggregator: "mean"
+  aggregator: mean
 
 training:
-  num_epochs: 30
-  batch_size: 2048
+  num_epochs: 10
+  batch_size: 1024
   lr: 0.001
   weight_decay: 0.0005
-  optimizer: "adam"
+  optimizer: adam       # not used yet, but fine to keep
+
+sampling:
+  use_neighbor_sampling: true
+  fanouts: [10, 10]
+  num_workers: 0
 
 loss:
   type: "binary_cross_entropy_with_logits"
   pos_weight_path: null
 
-sampling:
-  use_neighbor_sampling: true
-  fanouts: [10, 10]
-  num_workers: 4
 
 evaluation:
   metrics:
